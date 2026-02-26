@@ -1,0 +1,51 @@
+{
+  "name": "express-decor",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./controller": "./dist/controller/index.js",
+    "./httpContext": "./dist/httpContext.js",
+    "./jwt": "./dist/jwt/index.js",
+    "./errors": "./dist/errors.js",
+    "./logger": "./dist/logger.js",
+    "./middlewares": "./dist/middlewares/index.js",
+    "./database": "./dist/database/index.js"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "express": "^5.0.0",
+    "@types/express": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/express": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/dotenv": "^6.1.1",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.3.1",
+    "@types/pg": "^8.15.5",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.2",
+    "express-rate-limit": "^8.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3"
+  }
+}
