@@ -99,11 +99,6 @@ function hasValidator(ctr: Constructor): boolean {
 }
 
 function isValidSchema(value: any, ctr: Constructor): boolean {
-  if (ctr instanceof ArrayOfConstructor) {
-    if (!Array.isArray(value)) return false;
-    return value.every(item => isValidSchema(item, ctr.type));
-  }
-
   const key = getTypeKey(ctr);
   if (!key) return false;
 
