@@ -8,7 +8,7 @@ function errorMiddleware(err: Error, req: Request, res: Response, next: NextFunc
   
   // Bad JSON
   if (err instanceof SyntaxError && "body" in err) {
-    return res.status(400).json("Invalid JSON payload");
+    return res.status(400).send("Invalid JSON payload");
   }
   
   if (err instanceof DatabaseError) {
@@ -24,27 +24,27 @@ function errorMiddleware(err: Error, req: Request, res: Response, next: NextFunc
   }
 
   if (err instanceof BadRequestError) {
-    res.status(400).json({ error: err.message });
+    res.status(400).send(err.message);
     return;
   }
 
   if (err instanceof UnauthorizedError) {
-    res.status(401).json({ error: err.message });
+    res.status(401).send(err.message);
     return;
   }
   
   if (err instanceof ForbiddenError) {
-    res.status(403).json({ error: err.message });
+    res.status(403).send(err.message);
     return;
   }
 
   if (err instanceof NotFoundError) {
-    res.status(404).json({ error: err.message });
+    res.status(404).send(err.message);
     return;
   }
 
   if (err instanceof ConflictError) {
-    res.status(409).json({ error: err.message });
+    res.status(409).send(err.message);
     return;
   }
 
