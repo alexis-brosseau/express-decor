@@ -26,8 +26,8 @@
   "author": "",
   "license": "UNLICENSED",
   "peerDependencies": {
-    "express": "^5.0.0",
-    "@types/express": "^5.0.0"
+    "@types/express": "^5.0.0",
+    "express": "^5.0.0"
   },
   "peerDependenciesMeta": {
     "@types/express": {

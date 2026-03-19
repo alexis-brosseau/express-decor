@@ -28,9 +28,9 @@ function decor(config: DecorConfig) {
   router.use(express.json());
   router.use(express.urlencoded({ extended: true }));
   router.use(cookieParser());
-
+  
   postParseMiddlewares.forEach(mw => router.use(mw));
-
+  
   router.use(authMiddleware);
   router.use(controllerMiddleware);
   router.use(errorMiddleware);
