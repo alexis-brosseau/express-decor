@@ -1,5 +1,5 @@
 import type { UUID } from 'crypto';
-import type { PoolClient, QueryResult } from 'pg';
+import type { PoolClient, QueryResult, QueryResultRow } from 'pg';
 
 export default class Table {
   private client: PoolClient;
@@ -10,26 +10,25 @@ export default class Table {
     this.name = name;
   }
 
-  async query(sql: string, params: any[] = []): Promise<any[]> {
-    const result: QueryResult = await this.client.query(sql, params);
-    return result.rows;
+  protected async query<T extends QueryResultRow>(sql: string, params: any[] = []): Promise<QueryResult<T>> {
+    return this.client.query<T>(sql, params);
   }
 
-  protected async call(procedure: string, params: Record<string, any> = {}): Promise<any[]> {
+  protected async call<T extends QueryResultRow>(procedure: string, params: Record<string, any> = {}): Promise<QueryResult<T>> {
     const paramKeys = Object.keys(params);
     const paramPlaceholders = paramKeys.map((_, index) => `$${index + 1}`).join(', ');
     const query = `SELECT * FROM ${procedure}(${paramPlaceholders})`;
     const paramValues = paramKeys.map(key => params[key]);
 
-    const rows = await this.query(query, paramValues);
-    return rows;
+    const res = await this.query<T>(query, paramValues);
+    return res;
   }
 
-  async get(id: UUID): Promise<any | null> {
+  protected async get<T extends QueryResultRow>(id: UUID): Promise<any | null> {
     const query = `SELECT * FROM "${this.name}" WHERE "id" = $1`;
     
-    const rows = await this.query(query, [id]);
-    if (rows.length === 0) return null;
-    return rows[0];
+    const res = await this.query<T>(query, [id]);
+    if (res.rows.length === 0) return null;
+    return res.rows[0];
   }
 }

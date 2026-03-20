@@ -33,7 +33,7 @@ export function ensureQuery(query?: Record<string, any> | null) {
   return query;
 }
 
-export function ensureBody(body?: any | null) {
+export function ensureBody(body?: any | null): Record<string, any> {
   if (!body) throw new InternalServerError('Body not found in HttpContext');
   return body;
 }
